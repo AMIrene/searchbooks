@@ -9,8 +9,8 @@ query me {
         password
         bookCount
         savedBooks {
-            authors
             bookId
+            authors
             image
             link
             title
