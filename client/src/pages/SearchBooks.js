@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import { useMutation } from '@apollo/client';
-// import { SAVE_BOOK } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
+import { SAVE_BOOK } from '../utils/mutations';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
@@ -15,7 +15,8 @@ const SearchBooks = () => {
 
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
-  // const [saveBook, { error }] = useMutation(SAVE_BOOK);
+
+  const [saveABook, { error }] = useMutation(SAVE_BOOK);
 
   
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
@@ -71,7 +72,9 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
+      // const response = await saveBook(bookToSave, token);
+
+      const response = await saveABook({variables: {...bookToSave} })
 
       if (!response.ok) {
         throw new Error('something went wrong!');
