@@ -15,43 +15,18 @@ const SavedBooks = () => {
 
   //useMutation hook
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
-  
-//create state to hold data 
-  // const [userData, setUserData] = useState({});
+
 
 //use the useQuery() Hook to execute the GET_ME
 //query on load and save it to a variable named userData.
   
-  const userData = data?.me || {};
+  // const userData = data?.me || {};
+  const userData = () => data?.me || {};
+
+  const userBooks = () => data?.me?.savedBooks || [];
   
-  // use this to determine if `useEffect()` hook needs to run again
-  // const userDataLength = Object.keys(userData).length;
-
-  // useEffect(() => {
-  //   const getUserData = async () => {
-  //     try {
-  //       const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-  //       if (!token) {
-  //         return false;
-  //       }
-
-  //       const response = await getMe(token);
-
-  //       if (!response.ok) {
-  //         throw new Error('something went wrong!');
-  //       }
-
-  //       const user = await response.json();
-  //       setUserData(user);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   getUserData();
-  // }, [userDataLength]);
-
+ 
+  
   //useMutation() Hook to execute the REMOVE_BOOK mutation
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
@@ -92,12 +67,12 @@ const SavedBooks = () => {
       </Jumbotron>
       <Container>
         <h2>
-          {userData.savedBooks.length
-            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
+          {userBooks().length
+            ? `Viewing ${userBooks().length} saved ${userBooks().length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <CardColumns>
-          {userData.savedBooks.map((book) => {
+          {userBooks().map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
                 {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
