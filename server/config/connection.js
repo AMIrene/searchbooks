@@ -2,11 +2,15 @@ const mongoose = require('mongoose');
 
 require('dotenv').config()
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/googlebooks', {
+const dbURI = process.env.MONGODB_URI || 'mongodb://localhost/googlebooks-app'
+
+console.log('DB URI', dbURI)
+
+mongoose.connect(dbURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  useFindAndModify: false,
+  useFindAndModify: false
 });
 
 module.exports = mongoose.connection;
