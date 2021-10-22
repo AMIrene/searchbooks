@@ -13,7 +13,7 @@ type User {
 
 type Book {
     bookId: String
-    authors: String
+    authors: [String]
     description: String
     image: String
     link: String

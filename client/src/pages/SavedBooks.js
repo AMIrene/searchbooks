@@ -2,25 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
-import { GET_ME } from '../utils/queries';
+import { GET_ME,  } from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 // import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
-
   //useQuery hook 
-  const { loading, data } = useQuery(GET_ME);
+  const { loading, data } = useQuery(GET_ME, {fetchPolicy:"network-only"});
 
   //useMutation hook
-  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
-
+  const [removeBook, { error }] = useMutation(REMOVE_BOOK, {refetchQueries:[{query:GET_ME}]});
+ 
 
 //use the useQuery() Hook to execute the GET_ME
 //query on load and save it to a variable named userData.
   
-  // const userData = data?.me || {};
+ 
   const userData = () => data?.me || {};
 
   const userBooks = () => data?.me?.savedBooks || [];
@@ -38,11 +37,12 @@ const SavedBooks = () => {
     }
 
     try {
-      const response = await removeBook({ variables: { bookId}, });
+      await removeBook({
+        variables: { bookId } });
       
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      console.log('hello');
+     
+    
 
   //Make sure you keep the removeBookId() function in place!)
 
