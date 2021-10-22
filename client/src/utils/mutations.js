@@ -21,7 +21,7 @@ mutation addUser($username: String!, $email: String!, $password: String!) {
         token
         user {
             _id
-            name
+            username
         }
     }
 }
