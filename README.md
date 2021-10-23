@@ -58,7 +58,7 @@ THEN I am logged out of the site and presented with a menu with the options Sear
 ```
 
 
-## Mock-Up
+## Deployed site
 
 Let's start by revisiting the web application's appearance and functionality.
 
